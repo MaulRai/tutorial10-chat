@@ -5,7 +5,7 @@ use tokio_websockets::{ClientBuilder, Message};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
-    let url = "ws://127.0.0.1:8080";
+    let url = "ws://127.0.0.1:49838";
 
     let (ws_stream, _) = ClientBuilder::new().uri(url)?.connect().await?;
     let (mut sender, mut receiver) = ws_stream.split();
@@ -14,6 +14,8 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
 
     println!("Connected to {url}");
     println!("Type messages and press Enter to send");
+
+    println!("Maulana's Computer - From server: Welcome to chat! Type a message");
 
     loop {
         tokio::select! {
@@ -29,7 +31,7 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
                 match msg {
                     Some(Ok(msg)) if msg.is_text() => {
                         if let Some(text) = msg.as_text() {
-                            println!("Received: {text}");
+                            println!("Maulana's Computer - From server: {text}");
                         }
                     }
                     Some(Err(e)) => {

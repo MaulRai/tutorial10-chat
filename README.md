@@ -41,3 +41,9 @@ yakni pada:
 ![image 7](images/image7.png)
 
 Masalah terjadi karena port yang digunakan oleh server dan client harus konsisten agar keduanya bisa saling terhubung. Ketika server diubah ke port 8080, tetapi client masih mencoba untuk terkoneksi ke port 2000, maka koneksi gagal karena tidak ada server yang mendengarkan di port tersebut. Hal ini terlihat pada kode `TcpListener::bind("127.0.0.1:2000")`, yang menunjukkan bahwa client masih mengarah ke port lama. Setelah port pada `client.rs` diubah menjadi 8080 agar sesuai dengan port server, barulah koneksi berhasil karena client sekarang mencoba terhubung ke alamat dan port yang benar di mana server aktif mendengarkan. Keselarasan alamat IP dan port ini penting dalam komunikasi jaringan untuk memastikan jalur koneksi terbentuk secara benar.
+
+# Eksplanasi Experiment 2.3
+
+![image 8](images/image8.png)
+
+Saya membuat perubahan pada line-line untuk print agar informasi terkait port, IP dan sumber klien dan server menjadi jelas. Karena untuk kasus pembuatan log chat informasi port, IP dan sumber sangat penting seperti untuk keperluan tracking dan lain lain.

@@ -18,7 +18,7 @@ async fn handle_connection(
                 match incoming {
                     Some(Ok(msg)) if msg.is_text() => {
                         if let Some(text) = msg.as_text() {
-                            println!("Received from {addr}: {text}");
+                            println!("From client {addr}: \"{text}\"");
                             let _ = bcast_tx.send(text.to_string()); // ignore send error if no listener
                         }
                     }
@@ -50,12 +50,12 @@ async fn handle_connection(
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
     let (bcast_tx, _) = channel(32);
-    let listener = TcpListener::bind("127.0.0.1:2000").await?;
-    println!("Server listening on ws://127.0.0.1:2000");
+    let listener = TcpListener::bind("127.0.0.1:49838").await?;
+    println!("Server listening on ws://127.0.0.1:49838");
 
     loop {
         let (socket, addr) = listener.accept().await?;
-        println!("New client connected: {addr}");
+        println!("New client connected from Maulana's Computer: {addr}");
 
         let bcast_tx = bcast_tx.clone();
         tokio::spawn(async move {
